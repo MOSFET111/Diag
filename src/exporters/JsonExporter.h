@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 #include "../model/DeviceReport.h"
-
+#include "../utils/SizeUtils.h"
 namespace diag {
 
   // ✅ Header-only helper must be inline to avoid multiple definition issues
@@ -60,7 +60,9 @@ namespace diag {
 
       // memory
       out << "    \"memory\": {\n";
-      out << "      \"totalBytes\": " << report.system.memory.totalBytes << "\n";
+      out << "      \"totalBytes\": " << report.system.memory.totalBytes << ",\n";
+      out << "      \"totalMB\": " << diag::utils::bytesToMB(report.system.memory.totalBytes) << ",\n";
+      out << "      \"totalGB\": " << diag::utils::bytesToGB(report.system.memory.totalBytes) << "\n";
       out << "    },\n";
 
       // bios
@@ -79,7 +81,9 @@ namespace diag {
         out << "      {\n";
         out << "        \"name\": \"" << jsonEscape(gpu.name) << "\",\n";
         out << "        \"vendor\": \"" << jsonEscape(gpu.vendor) << "\",\n";
-        out << "        \"vramBytes\": " << gpu.vramBytes << "\n";
+        out << "        \"vramBytes\": " << gpu.vramBytes << ",\n";
+        out << "        \"vramMB\": " << diag::utils::bytesToMB(gpu.vramBytes) << ",\n";
+        out << "        \"vramGB\": " << diag::utils::bytesToGB(gpu.vramBytes) << "\n";
         out << "      }";
 
         if (i + 1 < report.system.gpus.size())

@@ -133,13 +133,30 @@ static void collectGpus(IWbemServices* services, Logger& logger, diag::SystemInf
     }
 
     // VRAM
+    // VRAM bytes (AdapterRAM)
+{
+  VARIANT vt{};
+  VariantInit(&vt);
+
+  HRESULT h = obj->Get(L"AdapterRAM", 0, &vt, nullptr, nullptr);
+  if (SUCCEEDED(h))
+  {
+    if (vt.vt == VT_NULL || vt.vt == VT_EMPTY)
     {
-      VARIANT vt{};
-      VariantInit(&vt);
-      if (SUCCEEDED(obj->Get(L"AdapterRAM", 0, &vt, nullptr, nullptr)))
-        readVariantUInt64(vt, gpu.vramBytes);
-      VariantClear(&vt);
+      // leave 0
     }
+    else if (vt.vt == VT_UI4)
+      gpu.vramBytes = static_cast<std::uint64_t>(vt.ulVal);
+    else if (vt.vt == VT_UI8)
+      gpu.vramBytes = vt.ullVal;
+    else if ((vt.vt == VT_I4))
+      gpu.vramBytes = static_cast<std::uint64_t>(vt.lVal);
+    else if (vt.vt == VT_BSTR && vt.bstrVal)
+      gpu.vramBytes = _wcstoui64(vt.bstrVal, nullptr, 10);
+  }
+
+  VariantClear(&vt);
+}
 
     if (!gpu.name.empty())
       logger.info("Detected GPU: " + gpu.name);

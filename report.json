@@ -1,7 +1,7 @@
 {
   "toolName": "Diag",
   "toolVersion": "0.1.0",
-  "generatedAt": "2026-01-28_12-46-57",
+  "generatedAt": "2026-01-28_17-25-21",
   "system": {
     "os": {
       "caption": "Microsoft Windows 11 Pro",
@@ -9,9 +9,11 @@
     },
     "cpu": {
       "name": "AMD Ryzen 5 4500 6-Core Processor              "
-},
+    },
     "memory": {
-      "totalBytes": 17068240896
+      "totalBytes": 17068240896,
+      "totalMB": 16277.5,
+      "totalGB": 15.896
     },
     "bios": {
       "vendor": "American Megatrends International, LLC.",
@@ -21,7 +23,9 @@
       {
         "name": "NVIDIA GeForce RTX 3050",
         "vendor": "NVIDIA",
-        "vramBytes": 0
+        "vramBytes": 18446744073708503040,
+        "vramMB": 1.75922e+13,
+        "vramGB": 1.71799e+10
       }
     ]
   }
