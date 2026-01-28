@@ -5,6 +5,7 @@
 #include <string>
 #include "core/Application.h"
 #include "logging/Logger.h"
+#include "cli/Args.h"
 
 static std::string fileSafeTimestamp()
 {
@@ -18,15 +19,18 @@ static std::string fileSafeTimestamp()
 }
 
 
+int main(int argc, char** argv)
+{
+  const diag::Args args = diag::parseArgs(argc, argv);
+  if (args.showHelp)
+  {
+    std::cout << diag::helpText();
+    return 0;
+  }
 
-
-int main() {
-  
+  const std::string logPath = "logs/run_" + fileSafeTimestamp() + ".log";
+  diag::Logger logger(logPath, args.echoLogs);
 
   diag::Application app;
-  
-  const std::string logPath = "logs/run_" + fileSafeTimestamp() + ".log";
-  diag::Logger logger(logPath, true);
-  
-  return app.run(logger);
+  return app.run(logger, args.outPath);
 }

@@ -18,7 +18,7 @@ static std::string fileSafeTimestamp()
 }
 
 namespace diag{
-  int Application::run (Logger& logger){
+  int Application::run (Logger& logger, const std::string& outPath){
     logger.info("Starting Diag tool");
 
     diag::DeviceReport report(
@@ -27,10 +27,9 @@ namespace diag{
       fileSafeTimestamp()
     );
 
-    const std::string outputPath("report.json");
-    logger.info("Exporting report.json to " + outputPath);
-    if(diag::JsonExporter::exportToFile(report, outputPath)){
-      logger.info("Export finished successfully to: " + outputPath);
+    logger.info("Exporting report.json to " + outPath);
+    if(diag::JsonExporter::exportToFile(report, outPath)){
+      logger.info("Export finished successfully to: " + outPath);
     } else {  
       logger.error("Failed to export report.json");
       return 1;

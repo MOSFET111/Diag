@@ -13,7 +13,7 @@ Args parseArgs(int argc, char** argv){
 
     const std::string token = argv[i];
 
-    if(token == "help" | token == "h"){
+    if(token == "--help" | token == "-h"){
       args.showHelp = true;
       return args;
     }
@@ -24,7 +24,7 @@ Args parseArgs(int argc, char** argv){
         args.showHelp = true;
         return args;
       }
-      args.outPath = token[i + 1];
+      args.outPath = argv[i + 1];
       continue;
     }
 
