@@ -16,7 +16,6 @@ namespace diag {
       std::string version,
       std::string timestamp
     )
-
     : toolName(std::move(name)),
       toolVersion(std::move(version)),
       generatedAt(std::move(timestamp))

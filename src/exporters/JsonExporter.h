@@ -7,14 +7,14 @@
 
 namespace diag {
 
-    class jsonExporter 
+    class JsonExporter 
   {
     public: 
     static bool exportToFile(
       const DeviceReport& report,
       const std::string& filePath
     )//bool exportToFile
-    
+
     {
       std::ofstream out(filePath);
       if(!out.is_open())
@@ -32,5 +32,5 @@ namespace diag {
     }
     
   
-  }// class jsonExporter
+  };// class jsonExporter
 }// namespace diag

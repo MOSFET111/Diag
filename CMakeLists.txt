@@ -4,8 +4,9 @@ project(Diag LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(device_inspector
+add_executable(Diag
   src/main.cpp
+  src/logging/Logger.cpp
 )
 
-target_include_directories(device_inspector PRIVATE src)
+target_include_directories(Diag PRIVATE src)
