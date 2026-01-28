@@ -9,6 +9,7 @@ add_executable(Diag
   src/logging/Logger.cpp
   src/core/Application.cpp
   src/cli/Args.cpp
+  src/collectors/WMICollector.cpp
 )
 
 target_include_directories(Diag PRIVATE src)

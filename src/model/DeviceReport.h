@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "../model/SystemInfo.h" // or "SystemInfo.h" depending on your include style
 
 namespace diag {
 
@@ -8,6 +9,8 @@ namespace diag {
     std::string toolName;
     std::string toolVersion;
     std::string generatedAt;
+
+    SystemInfo system; // ✅ add this
 
     DeviceReport() = default;
 
@@ -19,6 +22,7 @@ namespace diag {
     : toolName(std::move(name)),
       toolVersion(std::move(version)),
       generatedAt(std::move(timestamp))
-      {}
+    {}
   };
-}// namespace diag
+
+} // namespace diag

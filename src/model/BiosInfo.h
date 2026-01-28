@@ -1,10 +1,11 @@
 #pragma once
+
 #include <string>
 
 namespace diag {
 
-struct OsInfo {
-  std::string caption;
+struct BiosInfo {
+  std::string vendor;
   std::string version;
 };
 
