@@ -8,6 +8,7 @@ add_executable(Diag
   src/main.cpp
   src/logging/Logger.cpp
   src/core/Application.cpp
+  src/cli/Args.cpp
 )
 
 target_include_directories(Diag PRIVATE src)
