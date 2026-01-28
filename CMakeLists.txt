@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(Diag
   src/main.cpp
   src/logging/Logger.cpp
+  src/core/Application.cpp
 )
 
 target_include_directories(Diag PRIVATE src)
