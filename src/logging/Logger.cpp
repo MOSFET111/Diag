@@ -3,6 +3,7 @@
 #include <ctime>
 #include <iomanip>
 #include <sstream>
+#include <iostream>
 
 namespace fs = std::filesystem;
 
@@ -27,16 +28,21 @@ static const char* levelToString(diag::LogLevel level) {
 namespace diag
 {
 
-  Logger::Logger(const std::string& filePath)
-  : filePath_(filePath)
+  Logger::Logger(const std::string& filePath, bool echoToConsole)
+  : filePath_(filePath), echoToConsole_(echoToConsole)
   {
     try{
-
       fs::path p(filePath_);
       if(p.has_parent_path())
         fs::create_directories(p.parent_path());
       out_.open(filePath_, std::ios::app);
-    }catch(...){}
+    }catch(const std::exception& e){
+      if(echoToConsole_)
+        std::cerr << "Failed to initialize logger: " << e.what() << "\n";
+    }catch(...){
+      if(echoToConsole_)
+        std::cerr << "Failed to initialize logger: Unknown error\n";
+    }
   }
       
   
@@ -45,12 +51,20 @@ namespace diag
   }
   
   void Logger::log(LogLevel level, const std::string& message) {
-    if(!isOpen()) return;
+    const std::string line =
+      "[" + nowTimeStamp() + "] [" + levelToString(level) + "] " + message;
     
-    out_ << "[" << nowTimeStamp() << "] ";
-    out_ <<"[" << levelToString(level) << "] ";
-    out_ << message << '\n';
-    out_.flush();
+    if(isOpen()) {
+       out_ << line << '\n';
+       out_.flush();
+    }
+    
+    if(echoToConsole_){
+      if(level == LogLevel::Error)
+        std::cerr << line << "\n";
+      else
+        std::cout << line << "\n";
+    }
   }
     
   void Logger::info(const std::string& message) {
@@ -59,10 +73,10 @@ namespace diag
   
   void Logger::warn(const std::string& message) {
     log(LogLevel::Warn, message);
-    }
+  }
     
-    void Logger::error(const std::string& message) {
-      log(LogLevel::Error, message);
-    }
+  void Logger::error(const std::string& message) {
+    log(LogLevel::Error, message);
+  }
     
 }

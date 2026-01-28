@@ -16,7 +16,7 @@ namespace diag {
     public:
       bool isOpen() const ;
       
-      Logger(const std::string& filePath);
+      explicit Logger(const std::string& filePath, bool echoToConsole = false);
       
       void info(const std::string& message);
       void warn(const std::string& message);
@@ -27,6 +27,7 @@ namespace diag {
     private:
       std::ofstream out_;
       std::string filePath_;
+      bool echoToConsole_;
   
   };//class Logger
 

@@ -3,7 +3,7 @@
 
 #include "model/DeviceReport.h"
 #include "exporters/JsonExporter.h"
-#include "logging/logger.h"
+#include "logging/Logger.h"
 
 static std::string currentTimeStamp()
 {
@@ -22,7 +22,7 @@ static std::string currentTimeStamp()
 
 
 int main() {
-  diag::Logger logger("logs/run.log");
+  diag::Logger logger("logs/run.log", true);
   logger.info("Starting Diag tool");
 
 
@@ -35,10 +35,8 @@ int main() {
 
   logger.info("Exporting report.json to " + outputPath);
   if(diag::JsonExporter::exportToFile(report, outputPath)){
-    std::cout << "Report exported to " << outputPath << std::endl;
-    logger.info("Export finished successfully");
+    logger.info("Export finished successfully to: " + outputPath);
   } else {  
-    std::cerr << "Failed to export report" << std::endl;
     logger.error("Faild to export report.json");
     return 1;
   }
