@@ -1,6 +1,8 @@
 #include <iostream>
 #include <ctime>
-
+#include <iomanip>
+#include <sstream>
+#include <string>
 #include "model/DeviceReport.h"
 #include "exporters/JsonExporter.h"
 #include "logging/Logger.h"
@@ -17,12 +19,23 @@ static std::string currentTimeStamp()
   return ts;
 }
 
+static std::string fileSafeTimestamp()
+{
+  std::time_t now = std::time(nullptr);
+  std::tm tm{};
+  localtime_s(&tm, &now);
+
+  std::ostringstream oss;
+  oss << std::put_time(&tm, "%Y-%m-%d_%H-%M-%S");
+  return oss.str();
+}
 
 
 
 
 int main() {
-  diag::Logger logger("logs/run.log", true);
+  const std::string logPath = "logs/run_" + fileSafeTimestamp() + ".log";
+  diag::Logger logger(logPath, true);
   logger.info("Starting Diag tool");
 
 
