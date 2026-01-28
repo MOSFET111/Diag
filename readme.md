@@ -23,7 +23,7 @@ A portable Windows diagnostic and hardware inspection tool written in C++.
 - -   --log-echo           Echo logs to console (default: on)
 - -   --no-log-echo        Disable console log echo
 
-- Examples:\n";
+- Examples:
 - -   Diag.exe --out out/report.json
 - -   Diag.exe --no-log-echo
 
